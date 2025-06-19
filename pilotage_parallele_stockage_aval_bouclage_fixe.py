@@ -7,7 +7,7 @@ from scipy.optimize import minimize
 import tqdm
 from time import sleep
 
-lib_path = r'/home/mouzounb/Bureau/parallel_ECS_stock_aval/C/parallele_ECS_Stock_aval_ert_rtw/liball.so'
+lib_path = r'/home/mouzounb/Bureau/parallel_ECS_stock_aval/Code_C/parallele_ECS_Stock_aval_ert_rtw/liball.so'
 
 
 from ctypes import *
@@ -17,6 +17,7 @@ lib = cdll.LoadLibrary(lib_path)
 import matplotlib as mpl
 mpl.rcParams['date.autoformatter.hour'] = '%d %b %Hh'
 mpl.rcParams['date.autoformatter.minute'] = '%d %b %H:%M'
+
 
 
 
@@ -67,6 +68,9 @@ if True:
     
     lib.getU_m_ECS_V3V.argtypes = (POINTER(c_double), )
     lib.setU_m_ECS_V3V.argtypes = (POINTER(c_double), )
+    
+    lib.getU_m_ECS_bouc.argtypes = (POINTER(c_double), )
+    lib.setU_m_ECS_bouc.argtypes = (POINTER(c_double), )
     # -- Y --
     
     lib.getY_T_sec_in.argtypes = (POINTER(c_double), )
@@ -116,9 +120,6 @@ if True:
     
     lib.getY_Q_ech_ECS.argtypes = (POINTER(c_double), )
     lib.setY_Q_ech_ECS.argtypes = (POINTER(c_double), )
-    
-    lib.getY_m_ECS_bouc.argtypes = (POINTER(c_double), )
-    lib.setY_m_ECS_bouc.argtypes = (POINTER(c_double), )
     
     lib.getY_m_ECS.argtypes = (POINTER(c_double), )
     lib.setY_m_ECS.argtypes = (POINTER(c_double), )
@@ -214,11 +215,11 @@ if True:
     lib.getP_Radiateurs_S.argtypes = (POINTER(c_double), )
     lib.setP_Radiateurs_S.argtypes = (POINTER(c_double), )
     
-    lib.getP_EchangeurECS_S.argtypes = (POINTER(c_double), )
-    lib.setP_EchangeurECS_S.argtypes = (POINTER(c_double), )
-    
     lib.getP_Echangeurrseau_S.argtypes = (POINTER(c_double), )
     lib.setP_Echangeurrseau_S.argtypes = (POINTER(c_double), )
+    
+    lib.getP_EchangeurECS_S.argtypes = (POINTER(c_double), )
+    lib.setP_EchangeurECS_S.argtypes = (POINTER(c_double), )
     
     lib.getP_Radiateurs_T_air.argtypes = (POINTER(c_double), )
     lib.setP_Radiateurs_T_air.argtypes = (POINTER(c_double), )
@@ -247,11 +248,11 @@ if True:
     lib.getP_Radiateurs_U.argtypes = (POINTER(c_double), )
     lib.setP_Radiateurs_U.argtypes = (POINTER(c_double), )
     
-    lib.getP_EchangeurECS_U.argtypes = (POINTER(c_double), )
-    lib.setP_EchangeurECS_U.argtypes = (POINTER(c_double), )
-    
     lib.getP_Echangeurrseau_U.argtypes = (POINTER(c_double), )
     lib.setP_Echangeurrseau_U.argtypes = (POINTER(c_double), )
+    
+    lib.getP_EchangeurECS_U.argtypes = (POINTER(c_double), )
+    lib.setP_EchangeurECS_U.argtypes = (POINTER(c_double), )
     
     lib.getP_Ballondestockage_V_min.argtypes = (POINTER(c_double), )
     lib.setP_Ballondestockage_V_min.argtypes = (POINTER(c_double), )
@@ -265,11 +266,14 @@ if True:
     lib.getP_Ballondestockage_n.argtypes = (POINTER(c_double), )
     lib.setP_Ballondestockage_n.argtypes = (POINTER(c_double), )
     
-    lib.getP_DelayRoot1_InitialCondition.argtypes = (POINTER(c_double), )
-    lib.setP_DelayRoot1_InitialCondition.argtypes = (POINTER(c_double), )
+    lib.getP_DelayRoot2_InitialCondition.argtypes = (POINTER(c_double), )
+    lib.setP_DelayRoot2_InitialCondition.argtypes = (POINTER(c_double), )
     
-    lib.getP_seuilm_1_Value.argtypes = (POINTER(c_double), )
-    lib.setP_seuilm_1_Value.argtypes = (POINTER(c_double), )
+    lib.getP_DelayRoot3_InitialCondition.argtypes = (POINTER(c_double), )
+    lib.setP_DelayRoot3_InitialCondition.argtypes = (POINTER(c_double), )
+    
+    lib.getP_Constant1_Value.argtypes = (POINTER(c_double), )
+    lib.setP_Constant1_Value.argtypes = (POINTER(c_double), )
     
     lib.getP_Delay_InitialCondition.argtypes = (POINTER(c_double), )
     lib.setP_Delay_InitialCondition.argtypes = (POINTER(c_double), )
@@ -283,8 +287,8 @@ if True:
     lib.getP_Constant17_Value.argtypes = (POINTER(c_double), )
     lib.setP_Constant17_Value.argtypes = (POINTER(c_double), )
     
-    lib.getP_DelayRoot2_InitialCondition.argtypes = (POINTER(c_double), )
-    lib.setP_DelayRoot2_InitialCondition.argtypes = (POINTER(c_double), )
+    lib.getP_Delay_InitialCondition_o.argtypes = (POINTER(c_double), )
+    lib.setP_Delay_InitialCondition_o.argtypes = (POINTER(c_double), )
     
     lib.getP_Constant24_Value.argtypes = (POINTER(c_double), )
     lib.setP_Constant24_Value.argtypes = (POINTER(c_double), )
@@ -301,8 +305,8 @@ if True:
     lib.getP_Delay4_InitialCondition.argtypes = (POINTER(c_double), )
     lib.setP_Delay4_InitialCondition.argtypes = (POINTER(c_double), )
     
-    lib.getP_Delay_InitialCondition_o.argtypes = (POINTER(c_double), )
-    lib.setP_Delay_InitialCondition_o.argtypes = (POINTER(c_double), )
+    lib.getP_Delay_InitialCondition_o3.argtypes = (POINTER(c_double), )
+    lib.setP_Delay_InitialCondition_o3.argtypes = (POINTER(c_double), )
     
     lib.getP_Delay_InitialCondition_k.argtypes = (POINTER(c_double), )
     lib.setP_Delay_InitialCondition_k.argtypes = (POINTER(c_double), )
@@ -321,9 +325,6 @@ if True:
     
     lib.getP_Gain_Gain.argtypes = (POINTER(c_double), )
     lib.setP_Gain_Gain.argtypes = (POINTER(c_double), )
-    
-    lib.getP_Delay_InitialCondition_oh.argtypes = (POINTER(c_double), )
-    lib.setP_Delay_InitialCondition_oh.argtypes = (POINTER(c_double), )
     
     
     # =======
@@ -382,8 +383,13 @@ if True:
         lib.getU_m_ECS_V3V(byref(m_ECS_V3V))
         return m_ECS_V3V.value
     
+    def getU_m_ECS_bouc():
+        m_ECS_bouc = c_double()
+        lib.getU_m_ECS_bouc(byref(m_ECS_bouc))
+        return m_ECS_bouc.value
+    
     def getU():
-        res = tuple(func() for func in [getU_m_ch_dir, getU_m_ECS_sout, getU_m_ECS_stock, getU_m_ECS_sec, getU_m_ch_V3V, getU_m_prim, getU_T_prim_in, getU_T_edv, getU_m_ECS_dir, getU_m_ECS_V3V])
+        res = tuple(func() for func in [getU_m_ch_dir, getU_m_ECS_sout, getU_m_ECS_stock, getU_m_ECS_sec, getU_m_ch_V3V, getU_m_prim, getU_T_prim_in, getU_T_edv, getU_m_ECS_dir, getU_m_ECS_V3V, getU_m_ECS_bouc])
         return res
     # -- Y --
     
@@ -466,11 +472,6 @@ if True:
         Q_ech_ECS = c_double()
         lib.getY_Q_ech_ECS(byref(Q_ech_ECS))
         return Q_ech_ECS.value
-    
-    def getY_m_ECS_bouc():
-        m_ECS_bouc = c_double()
-        lib.getY_m_ECS_bouc(byref(m_ECS_bouc))
-        return m_ECS_bouc.value
     
     def getY_m_ECS():
         m_ECS = c_double()
@@ -568,7 +569,7 @@ if True:
         return T_in_emet.value
     
     def getY():
-        res = tuple(func() for func in [getY_T_sec_in, getY_T_out_ECS, getY_T_out, getY_T_ECS_sec_out, getY_T_ECS_sec_in, getY_T_ECS_prim_in, getY_T_ECS_prim_out, getY_T_ch_out, getY_T_ch_in, getY_T_prim_out, getY_T_sec_out, getY_T_out_emetteur, getY_T_ECS_n, getY_Q_ch, getY_Q_ech, getY_Q_ech_ECS, getY_m_ECS_bouc, getY_m_ECS, getY_Q_aller, getY_Q_retour, getY_T_ballon_out, getY_T_avg, getY_T_mid, getY_T_std, getY_T_half, getY_T_ECS_1, getY_m_ECS_prim, getY_m_sec, getY_m_ch, getY_Q_ECS_aller, getY_Q_ECS_retour, getY_eff_ech, getY_eff_ech_ECS, getY_m_2_ree, getY_T_ECS_in, getY_T_in_emet])
+        res = tuple(func() for func in [getY_T_sec_in, getY_T_out_ECS, getY_T_out, getY_T_ECS_sec_out, getY_T_ECS_sec_in, getY_T_ECS_prim_in, getY_T_ECS_prim_out, getY_T_ch_out, getY_T_ch_in, getY_T_prim_out, getY_T_sec_out, getY_T_out_emetteur, getY_T_ECS_n, getY_Q_ch, getY_Q_ech, getY_Q_ech_ECS, getY_m_ECS, getY_Q_aller, getY_Q_retour, getY_T_ballon_out, getY_T_avg, getY_T_mid, getY_T_std, getY_T_half, getY_T_ECS_1, getY_m_ECS_prim, getY_m_sec, getY_m_ch, getY_Q_ECS_aller, getY_Q_ECS_retour, getY_eff_ech, getY_eff_ech_ECS, getY_m_2_ree, getY_T_ECS_in, getY_T_in_emet])
         return res
     # -- P --
     
@@ -632,15 +633,15 @@ if True:
         lib.getP_Radiateurs_S(byref(Radiateurs_S))
         return Radiateurs_S.value
     
-    def getP_EchangeurECS_S():
-        EchangeurECS_S = c_double()
-        lib.getP_EchangeurECS_S(byref(EchangeurECS_S))
-        return EchangeurECS_S.value
-    
     def getP_Echangeurrseau_S():
         Echangeurrseau_S = c_double()
         lib.getP_Echangeurrseau_S(byref(Echangeurrseau_S))
         return Echangeurrseau_S.value
+    
+    def getP_EchangeurECS_S():
+        EchangeurECS_S = c_double()
+        lib.getP_EchangeurECS_S(byref(EchangeurECS_S))
+        return EchangeurECS_S.value
     
     def getP_Radiateurs_T_air():
         Radiateurs_T_air = c_double()
@@ -687,15 +688,15 @@ if True:
         lib.getP_Radiateurs_U(byref(Radiateurs_U))
         return Radiateurs_U.value
     
-    def getP_EchangeurECS_U():
-        EchangeurECS_U = c_double()
-        lib.getP_EchangeurECS_U(byref(EchangeurECS_U))
-        return EchangeurECS_U.value
-    
     def getP_Echangeurrseau_U():
         Echangeurrseau_U = c_double()
         lib.getP_Echangeurrseau_U(byref(Echangeurrseau_U))
         return Echangeurrseau_U.value
+    
+    def getP_EchangeurECS_U():
+        EchangeurECS_U = c_double()
+        lib.getP_EchangeurECS_U(byref(EchangeurECS_U))
+        return EchangeurECS_U.value
     
     def getP_Ballondestockage_V_min():
         Ballondestockage_V_min = c_double()
@@ -717,15 +718,20 @@ if True:
         lib.getP_Ballondestockage_n(byref(Ballondestockage_n))
         return Ballondestockage_n.value
     
-    def getP_DelayRoot1_InitialCondition():
-        DelayRoot1_InitialCondition = c_double()
-        lib.getP_DelayRoot1_InitialCondition(byref(DelayRoot1_InitialCondition))
-        return DelayRoot1_InitialCondition.value
+    def getP_DelayRoot2_InitialCondition():
+        DelayRoot2_InitialCondition = c_double()
+        lib.getP_DelayRoot2_InitialCondition(byref(DelayRoot2_InitialCondition))
+        return DelayRoot2_InitialCondition.value
     
-    def getP_seuilm_1_Value():
-        seuilm_1_Value = c_double()
-        lib.getP_seuilm_1_Value(byref(seuilm_1_Value))
-        return seuilm_1_Value.value
+    def getP_DelayRoot3_InitialCondition():
+        DelayRoot3_InitialCondition = c_double()
+        lib.getP_DelayRoot3_InitialCondition(byref(DelayRoot3_InitialCondition))
+        return DelayRoot3_InitialCondition.value
+    
+    def getP_Constant1_Value():
+        Constant1_Value = c_double()
+        lib.getP_Constant1_Value(byref(Constant1_Value))
+        return Constant1_Value.value
     
     def getP_Delay_InitialCondition():
         Delay_InitialCondition = c_double()
@@ -747,10 +753,10 @@ if True:
         lib.getP_Constant17_Value(byref(Constant17_Value))
         return Constant17_Value.value
     
-    def getP_DelayRoot2_InitialCondition():
-        DelayRoot2_InitialCondition = c_double()
-        lib.getP_DelayRoot2_InitialCondition(byref(DelayRoot2_InitialCondition))
-        return DelayRoot2_InitialCondition.value
+    def getP_Delay_InitialCondition_o():
+        Delay_InitialCondition_o = c_double()
+        lib.getP_Delay_InitialCondition_o(byref(Delay_InitialCondition_o))
+        return Delay_InitialCondition_o.value
     
     def getP_Constant24_Value():
         Constant24_Value = c_double()
@@ -777,10 +783,10 @@ if True:
         lib.getP_Delay4_InitialCondition(byref(Delay4_InitialCondition))
         return Delay4_InitialCondition.value
     
-    def getP_Delay_InitialCondition_o():
-        Delay_InitialCondition_o = c_double()
-        lib.getP_Delay_InitialCondition_o(byref(Delay_InitialCondition_o))
-        return Delay_InitialCondition_o.value
+    def getP_Delay_InitialCondition_o3():
+        Delay_InitialCondition_o3 = c_double()
+        lib.getP_Delay_InitialCondition_o3(byref(Delay_InitialCondition_o3))
+        return Delay_InitialCondition_o3.value
     
     def getP_Delay_InitialCondition_k():
         Delay_InitialCondition_k = c_double()
@@ -812,13 +818,8 @@ if True:
         lib.getP_Gain_Gain(byref(Gain_Gain))
         return Gain_Gain.value
     
-    def getP_Delay_InitialCondition_oh():
-        Delay_InitialCondition_oh = c_double()
-        lib.getP_Delay_InitialCondition_oh(byref(Delay_InitialCondition_oh))
-        return Delay_InitialCondition_oh.value
-    
     def getP():
-        res = tuple(func() for func in [getP_Radiateurs_C, getP_Ballondestockage_D, getP_Chauffagealler_D, getP_Chauffageretour_D, getP_ECSaller_D, getP_ECSretour_D, getP_Ballondestockage_H, getP_Chauffagealler_L, getP_Chauffageretour_L, getP_ECSaller_L, getP_ECSretour_L, getP_Radiateurs_S, getP_EchangeurECS_S, getP_Echangeurrseau_S, getP_Radiateurs_T_air, getP_Ballondestockage_T_amb, getP_Chauffagealler_T_local, getP_Chauffageretour_T_local, getP_ECSaller_T_local, getP_ECSretour_T_local, getP_Radiateurs_T_prev, getP_Ballondestockage_U, getP_Radiateurs_U, getP_EchangeurECS_U, getP_Echangeurrseau_U, getP_Ballondestockage_V_min, getP_Ballondestockage_V_var, getP_Ballondestockage_eps, getP_Ballondestockage_n, getP_DelayRoot1_InitialCondition, getP_seuilm_1_Value, getP_Delay_InitialCondition, getP_Delay_InitialCondition_j, getP_Delay1_InitialCondition, getP_Constant17_Value, getP_DelayRoot2_InitialCondition, getP_Constant24_Value, getP_Delay2_InitialCondition, getP_Delay3_InitialCondition, getP_Delay5_InitialCondition, getP_Delay4_InitialCondition, getP_Delay_InitialCondition_o, getP_Delay_InitialCondition_k, getP_Switch_Threshold, getP_Delay_InitialCondition_o4, getP_Constant25_Value, getP_Constant26_Value, getP_Gain_Gain, getP_Delay_InitialCondition_oh])
+        res = tuple(func() for func in [getP_Radiateurs_C, getP_Ballondestockage_D, getP_Chauffagealler_D, getP_Chauffageretour_D, getP_ECSaller_D, getP_ECSretour_D, getP_Ballondestockage_H, getP_Chauffagealler_L, getP_Chauffageretour_L, getP_ECSaller_L, getP_ECSretour_L, getP_Radiateurs_S, getP_Echangeurrseau_S, getP_EchangeurECS_S, getP_Radiateurs_T_air, getP_Ballondestockage_T_amb, getP_Chauffagealler_T_local, getP_Chauffageretour_T_local, getP_ECSaller_T_local, getP_ECSretour_T_local, getP_Radiateurs_T_prev, getP_Ballondestockage_U, getP_Radiateurs_U, getP_Echangeurrseau_U, getP_EchangeurECS_U, getP_Ballondestockage_V_min, getP_Ballondestockage_V_var, getP_Ballondestockage_eps, getP_Ballondestockage_n, getP_DelayRoot2_InitialCondition, getP_DelayRoot3_InitialCondition, getP_Constant1_Value, getP_Delay_InitialCondition, getP_Delay_InitialCondition_j, getP_Delay1_InitialCondition, getP_Constant17_Value, getP_Delay_InitialCondition_o, getP_Constant24_Value, getP_Delay2_InitialCondition, getP_Delay3_InitialCondition, getP_Delay5_InitialCondition, getP_Delay4_InitialCondition, getP_Delay_InitialCondition_o3, getP_Delay_InitialCondition_k, getP_Switch_Threshold, getP_Delay_InitialCondition_o4, getP_Constant25_Value, getP_Constant26_Value, getP_Gain_Gain])
         return res
     
     
@@ -868,8 +869,12 @@ if True:
         m_ECS_V3V = c_double(value)
         lib.setU_m_ECS_V3V(byref(m_ECS_V3V))
     
+    def setU_m_ECS_bouc(value):
+        m_ECS_bouc = c_double(value)
+        lib.setU_m_ECS_bouc(byref(m_ECS_bouc))
+    
     def setU(values):
-        for values_, func in zip(values, [setU_m_ch_dir, setU_m_ECS_sout, setU_m_ECS_stock, setU_m_ECS_sec, setU_m_ch_V3V, setU_m_prim, setU_T_prim_in, setU_T_edv, setU_m_ECS_dir, setU_m_ECS_V3V]):
+        for values_, func in zip(values, [setU_m_ch_dir, setU_m_ECS_sout, setU_m_ECS_stock, setU_m_ECS_sec, setU_m_ch_V3V, setU_m_prim, setU_T_prim_in, setU_T_edv, setU_m_ECS_dir, setU_m_ECS_V3V, setU_m_ECS_bouc]):
             func(values_)
     # -- Y --
     
@@ -936,10 +941,6 @@ if True:
     def setY_Q_ech_ECS(value):
         Q_ech_ECS = c_double(value)
         lib.setY_Q_ech_ECS(byref(Q_ech_ECS))
-    
-    def setY_m_ECS_bouc(value):
-        m_ECS_bouc = c_double(value)
-        lib.setY_m_ECS_bouc(byref(m_ECS_bouc))
     
     def setY_m_ECS(value):
         m_ECS = c_double(value)
@@ -1018,7 +1019,7 @@ if True:
         lib.setY_T_in_emet(byref(T_in_emet))
     
     def setY(values):
-        for values_, func in zip(values, [setY_T_sec_in, setY_T_out_ECS, setY_T_out, setY_T_ECS_sec_out, setY_T_ECS_sec_in, setY_T_ECS_prim_in, setY_T_ECS_prim_out, setY_T_ch_out, setY_T_ch_in, setY_T_prim_out, setY_T_sec_out, setY_T_out_emetteur, setY_T_ECS_n, setY_Q_ch, setY_Q_ech, setY_Q_ech_ECS, setY_m_ECS_bouc, setY_m_ECS, setY_Q_aller, setY_Q_retour, setY_T_ballon_out, setY_T_avg, setY_T_mid, setY_T_std, setY_T_half, setY_T_ECS_1, setY_m_ECS_prim, setY_m_sec, setY_m_ch, setY_Q_ECS_aller, setY_Q_ECS_retour, setY_eff_ech, setY_eff_ech_ECS, setY_m_2_ree, setY_T_ECS_in, setY_T_in_emet]):
+        for values_, func in zip(values, [setY_T_sec_in, setY_T_out_ECS, setY_T_out, setY_T_ECS_sec_out, setY_T_ECS_sec_in, setY_T_ECS_prim_in, setY_T_ECS_prim_out, setY_T_ch_out, setY_T_ch_in, setY_T_prim_out, setY_T_sec_out, setY_T_out_emetteur, setY_T_ECS_n, setY_Q_ch, setY_Q_ech, setY_Q_ech_ECS, setY_m_ECS, setY_Q_aller, setY_Q_retour, setY_T_ballon_out, setY_T_avg, setY_T_mid, setY_T_std, setY_T_half, setY_T_ECS_1, setY_m_ECS_prim, setY_m_sec, setY_m_ch, setY_Q_ECS_aller, setY_Q_ECS_retour, setY_eff_ech, setY_eff_ech_ECS, setY_m_2_ree, setY_T_ECS_in, setY_T_in_emet]):
             func(values_)
     # -- P --
     
@@ -1070,13 +1071,13 @@ if True:
         Radiateurs_S = c_double(value)
         lib.setP_Radiateurs_S(byref(Radiateurs_S))
     
-    def setP_EchangeurECS_S(value):
-        EchangeurECS_S = c_double(value)
-        lib.setP_EchangeurECS_S(byref(EchangeurECS_S))
-    
     def setP_Echangeurrseau_S(value):
         Echangeurrseau_S = c_double(value)
         lib.setP_Echangeurrseau_S(byref(Echangeurrseau_S))
+    
+    def setP_EchangeurECS_S(value):
+        EchangeurECS_S = c_double(value)
+        lib.setP_EchangeurECS_S(byref(EchangeurECS_S))
     
     def setP_Radiateurs_T_air(value):
         Radiateurs_T_air = c_double(value)
@@ -1114,13 +1115,13 @@ if True:
         Radiateurs_U = c_double(value)
         lib.setP_Radiateurs_U(byref(Radiateurs_U))
     
-    def setP_EchangeurECS_U(value):
-        EchangeurECS_U = c_double(value)
-        lib.setP_EchangeurECS_U(byref(EchangeurECS_U))
-    
     def setP_Echangeurrseau_U(value):
         Echangeurrseau_U = c_double(value)
         lib.setP_Echangeurrseau_U(byref(Echangeurrseau_U))
+    
+    def setP_EchangeurECS_U(value):
+        EchangeurECS_U = c_double(value)
+        lib.setP_EchangeurECS_U(byref(EchangeurECS_U))
     
     def setP_Ballondestockage_V_min(value):
         Ballondestockage_V_min = c_double(value)
@@ -1138,13 +1139,17 @@ if True:
         Ballondestockage_n = c_double(value)
         lib.setP_Ballondestockage_n(byref(Ballondestockage_n))
     
-    def setP_DelayRoot1_InitialCondition(value):
-        DelayRoot1_InitialCondition = c_double(value)
-        lib.setP_DelayRoot1_InitialCondition(byref(DelayRoot1_InitialCondition))
+    def setP_DelayRoot2_InitialCondition(value):
+        DelayRoot2_InitialCondition = c_double(value)
+        lib.setP_DelayRoot2_InitialCondition(byref(DelayRoot2_InitialCondition))
     
-    def setP_seuilm_1_Value(value):
-        seuilm_1_Value = c_double(value)
-        lib.setP_seuilm_1_Value(byref(seuilm_1_Value))
+    def setP_DelayRoot3_InitialCondition(value):
+        DelayRoot3_InitialCondition = c_double(value)
+        lib.setP_DelayRoot3_InitialCondition(byref(DelayRoot3_InitialCondition))
+    
+    def setP_Constant1_Value(value):
+        Constant1_Value = c_double(value)
+        lib.setP_Constant1_Value(byref(Constant1_Value))
     
     def setP_Delay_InitialCondition(value):
         Delay_InitialCondition = c_double(value)
@@ -1162,9 +1167,9 @@ if True:
         Constant17_Value = c_double(value)
         lib.setP_Constant17_Value(byref(Constant17_Value))
     
-    def setP_DelayRoot2_InitialCondition(value):
-        DelayRoot2_InitialCondition = c_double(value)
-        lib.setP_DelayRoot2_InitialCondition(byref(DelayRoot2_InitialCondition))
+    def setP_Delay_InitialCondition_o(value):
+        Delay_InitialCondition_o = c_double(value)
+        lib.setP_Delay_InitialCondition_o(byref(Delay_InitialCondition_o))
     
     def setP_Constant24_Value(value):
         Constant24_Value = c_double(value)
@@ -1186,9 +1191,9 @@ if True:
         Delay4_InitialCondition = c_double(value)
         lib.setP_Delay4_InitialCondition(byref(Delay4_InitialCondition))
     
-    def setP_Delay_InitialCondition_o(value):
-        Delay_InitialCondition_o = c_double(value)
-        lib.setP_Delay_InitialCondition_o(byref(Delay_InitialCondition_o))
+    def setP_Delay_InitialCondition_o3(value):
+        Delay_InitialCondition_o3 = c_double(value)
+        lib.setP_Delay_InitialCondition_o3(byref(Delay_InitialCondition_o3))
     
     def setP_Delay_InitialCondition_k(value):
         Delay_InitialCondition_k = c_double(value)
@@ -1214,12 +1219,8 @@ if True:
         Gain_Gain = c_double(value)
         lib.setP_Gain_Gain(byref(Gain_Gain))
     
-    def setP_Delay_InitialCondition_oh(value):
-        Delay_InitialCondition_oh = c_double(value)
-        lib.setP_Delay_InitialCondition_oh(byref(Delay_InitialCondition_oh))
-    
     def setP(values):
-        for values_, func in zip(values, [setP_Radiateurs_C, setP_Ballondestockage_D, setP_Chauffagealler_D, setP_Chauffageretour_D, setP_ECSaller_D, setP_ECSretour_D, setP_Ballondestockage_H, setP_Chauffagealler_L, setP_Chauffageretour_L, setP_ECSaller_L, setP_ECSretour_L, setP_Radiateurs_S, setP_EchangeurECS_S, setP_Echangeurrseau_S, setP_Radiateurs_T_air, setP_Ballondestockage_T_amb, setP_Chauffagealler_T_local, setP_Chauffageretour_T_local, setP_ECSaller_T_local, setP_ECSretour_T_local, setP_Radiateurs_T_prev, setP_Ballondestockage_U, setP_Radiateurs_U, setP_EchangeurECS_U, setP_Echangeurrseau_U, setP_Ballondestockage_V_min, setP_Ballondestockage_V_var, setP_Ballondestockage_eps, setP_Ballondestockage_n, setP_DelayRoot1_InitialCondition, setP_seuilm_1_Value, setP_Delay_InitialCondition, setP_Delay_InitialCondition_j, setP_Delay1_InitialCondition, setP_Constant17_Value, setP_DelayRoot2_InitialCondition, setP_Constant24_Value, setP_Delay2_InitialCondition, setP_Delay3_InitialCondition, setP_Delay5_InitialCondition, setP_Delay4_InitialCondition, setP_Delay_InitialCondition_o, setP_Delay_InitialCondition_k, setP_Switch_Threshold, setP_Delay_InitialCondition_o4, setP_Constant25_Value, setP_Constant26_Value, setP_Gain_Gain, setP_Delay_InitialCondition_oh]):
+        for values_, func in zip(values, [setP_Radiateurs_C, setP_Ballondestockage_D, setP_Chauffagealler_D, setP_Chauffageretour_D, setP_ECSaller_D, setP_ECSretour_D, setP_Ballondestockage_H, setP_Chauffagealler_L, setP_Chauffageretour_L, setP_ECSaller_L, setP_ECSretour_L, setP_Radiateurs_S, setP_Echangeurrseau_S, setP_EchangeurECS_S, setP_Radiateurs_T_air, setP_Ballondestockage_T_amb, setP_Chauffagealler_T_local, setP_Chauffageretour_T_local, setP_ECSaller_T_local, setP_ECSretour_T_local, setP_Radiateurs_T_prev, setP_Ballondestockage_U, setP_Radiateurs_U, setP_Echangeurrseau_U, setP_EchangeurECS_U, setP_Ballondestockage_V_min, setP_Ballondestockage_V_var, setP_Ballondestockage_eps, setP_Ballondestockage_n, setP_DelayRoot2_InitialCondition, setP_DelayRoot3_InitialCondition, setP_Constant1_Value, setP_Delay_InitialCondition, setP_Delay_InitialCondition_j, setP_Delay1_InitialCondition, setP_Constant17_Value, setP_Delay_InitialCondition_o, setP_Constant24_Value, setP_Delay2_InitialCondition, setP_Delay3_InitialCondition, setP_Delay5_InitialCondition, setP_Delay4_InitialCondition, setP_Delay_InitialCondition_o3, setP_Delay_InitialCondition_k, setP_Switch_Threshold, setP_Delay_InitialCondition_o4, setP_Constant25_Value, setP_Constant26_Value, setP_Gain_Gain]):
             func(values_)
     
     
@@ -1229,13 +1230,13 @@ if True:
     
     # -- U --
     
-    mapper_U = {0: 'm_ch_dir', 1: 'm_ECS_sout', 2: 'm_ECS_stock', 3: 'm_ECS_sec', 4: 'm_ch_V3V', 5: 'm_prim', 6: 'T_prim_in', 7: 'T_edv', 8: 'm_ECS_dir', 9: 'm_ECS_V3V'}
+    mapper_U = {0: 'm_ch_dir', 1: 'm_ECS_sout', 2: 'm_ECS_stock', 3: 'm_ECS_sec', 4: 'm_ch_V3V', 5: 'm_prim', 6: 'T_prim_in', 7: 'T_edv', 8: 'm_ECS_dir', 9: 'm_ECS_V3V', 10: 'm_ECS_bouc'}
     # -- Y --
     
-    mapper_Y = {0: 'T_sec_in', 1: 'T_out_ECS', 2: 'T_out', 3: 'T_ECS_sec_out', 4: 'T_ECS_sec_in', 5: 'T_ECS_prim_in', 6: 'T_ECS_prim_out', 7: 'T_ch_out', 8: 'T_ch_in', 9: 'T_prim_out', 10: 'T_sec_out', 11: 'T_out_emetteur', 12: 'T_ECS_n', 13: 'Q_ch', 14: 'Q_ech', 15: 'Q_ech_ECS', 16: 'm_ECS_bouc', 17: 'm_ECS', 18: 'Q_aller', 19: 'Q_retour', 20: 'T_ballon_out', 21: 'T_avg', 22: 'T_mid', 23: 'T_std', 24: 'T_half', 25: 'T_ECS_1', 26: 'm_ECS_prim', 27: 'm_sec', 28: 'm_ch', 29: 'Q_ECS_aller', 30: 'Q_ECS_retour', 31: 'eff_ech', 32: 'eff_ech_ECS', 33: 'm_2_ree', 34: 'T_ECS_in', 35: 'T_in_emet'}
+    mapper_Y = {0: 'T_sec_in', 1: 'T_out_ECS', 2: 'T_out', 3: 'T_ECS_sec_out', 4: 'T_ECS_sec_in', 5: 'T_ECS_prim_in', 6: 'T_ECS_prim_out', 7: 'T_ch_out', 8: 'T_ch_in', 9: 'T_prim_out', 10: 'T_sec_out', 11: 'T_out_emetteur', 12: 'T_ECS_n', 13: 'Q_ch', 14: 'Q_ech', 15: 'Q_ech_ECS', 16: 'm_ECS', 17: 'Q_aller', 18: 'Q_retour', 19: 'T_ballon_out', 20: 'T_avg', 21: 'T_mid', 22: 'T_std', 23: 'T_half', 24: 'T_ECS_1', 25: 'm_ECS_prim', 26: 'm_sec', 27: 'm_ch', 28: 'Q_ECS_aller', 29: 'Q_ECS_retour', 30: 'eff_ech', 31: 'eff_ech_ECS', 32: 'm_2_ree', 33: 'T_ECS_in', 34: 'T_in_emet'}
     # -- P --
     
-    mapper_P = {0: 'Radiateurs_C', 1: 'Ballondestockage_D', 2: 'Chauffagealler_D', 3: 'Chauffageretour_D', 4: 'ECSaller_D', 5: 'ECSretour_D', 6: 'Ballondestockage_H', 7: 'Chauffagealler_L', 8: 'Chauffageretour_L', 9: 'ECSaller_L', 10: 'ECSretour_L', 11: 'Radiateurs_S', 12: 'EchangeurECS_S', 13: 'Echangeurrseau_S', 14: 'Radiateurs_T_air', 15: 'Ballondestockage_T_amb', 16: 'Chauffagealler_T_local', 17: 'Chauffageretour_T_local', 18: 'ECSaller_T_local', 19: 'ECSretour_T_local', 20: 'Radiateurs_T_prev', 21: 'Ballondestockage_U', 22: 'Radiateurs_U', 23: 'EchangeurECS_U', 24: 'Echangeurrseau_U', 25: 'Ballondestockage_V_min', 26: 'Ballondestockage_V_var', 27: 'Ballondestockage_eps', 28: 'Ballondestockage_n', 29: 'DelayRoot1_InitialCondition', 30: 'seuilm_1_Value', 31: 'Delay_InitialCondition', 32: 'Delay_InitialCondition_j', 33: 'Delay1_InitialCondition', 34: 'Constant17_Value', 35: 'DelayRoot2_InitialCondition', 36: 'Constant24_Value', 37: 'Delay2_InitialCondition', 38: 'Delay3_InitialCondition', 39: 'Delay5_InitialCondition', 40: 'Delay4_InitialCondition', 41: 'Delay_InitialCondition_o', 42: 'Delay_InitialCondition_k', 43: 'Switch_Threshold', 44: 'Delay_InitialCondition_o4', 45: 'Constant25_Value', 46: 'Constant26_Value', 47: 'Gain_Gain', 48: 'Delay_InitialCondition_oh'}
+    mapper_P = {0: 'Radiateurs_C', 1: 'Ballondestockage_D', 2: 'Chauffagealler_D', 3: 'Chauffageretour_D', 4: 'ECSaller_D', 5: 'ECSretour_D', 6: 'Ballondestockage_H', 7: 'Chauffagealler_L', 8: 'Chauffageretour_L', 9: 'ECSaller_L', 10: 'ECSretour_L', 11: 'Radiateurs_S', 12: 'Echangeurrseau_S', 13: 'EchangeurECS_S', 14: 'Radiateurs_T_air', 15: 'Ballondestockage_T_amb', 16: 'Chauffagealler_T_local', 17: 'Chauffageretour_T_local', 18: 'ECSaller_T_local', 19: 'ECSretour_T_local', 20: 'Radiateurs_T_prev', 21: 'Ballondestockage_U', 22: 'Radiateurs_U', 23: 'Echangeurrseau_U', 24: 'EchangeurECS_U', 25: 'Ballondestockage_V_min', 26: 'Ballondestockage_V_var', 27: 'Ballondestockage_eps', 28: 'Ballondestockage_n', 29: 'DelayRoot2_InitialCondition', 30: 'DelayRoot3_InitialCondition', 31: 'Constant1_Value', 32: 'Delay_InitialCondition', 33: 'Delay_InitialCondition_j', 34: 'Delay1_InitialCondition', 35: 'Constant17_Value', 36: 'Delay_InitialCondition_o', 37: 'Constant24_Value', 38: 'Delay2_InitialCondition', 39: 'Delay3_InitialCondition', 40: 'Delay5_InitialCondition', 41: 'Delay4_InitialCondition', 42: 'Delay_InitialCondition_o3', 43: 'Delay_InitialCondition_k', 44: 'Switch_Threshold', 45: 'Delay_InitialCondition_o4', 46: 'Constant25_Value', 47: 'Constant26_Value', 48: 'Gain_Gain'}
     
 
 # liste des entrées, sorties et paramètres
@@ -1257,6 +1258,7 @@ if True:
     # - T_edv
     # - m_ECS_dir
     # - m_ECS_V3V
+    # - m_ECS_bouc
     # 
     # ### SORTIES
     # 
@@ -1278,7 +1280,6 @@ if True:
     # - Q_ch
     # - Q_ech
     # - Q_ech_ECS
-    # - m_ECS_bouc
     # - m_ECS
     # - Q_aller
     # - Q_retour
@@ -1316,8 +1317,8 @@ if True:
     # - ECSaller_L
     # - ECSretour_L
     # - Radiateurs_S
-    # - EchangeurECS_S
     # - Echangeurrseau_S
+    # - EchangeurECS_S
     # - Radiateurs_T_air
     # - Ballondestockage_T_amb
     # - Chauffagealler_T_local
@@ -1327,32 +1328,32 @@ if True:
     # - Radiateurs_T_prev
     # - Ballondestockage_U
     # - Radiateurs_U
-    # - EchangeurECS_U
     # - Echangeurrseau_U
+    # - EchangeurECS_U
     # - Ballondestockage_V_min
     # - Ballondestockage_V_var
     # - Ballondestockage_eps
     # - Ballondestockage_n
-    # - DelayRoot1_InitialCondition
-    # - seuilm_1_Value
+    # - DelayRoot2_InitialCondition
+    # - DelayRoot3_InitialCondition
+    # - Constant1_Value
     # - Delay_InitialCondition
     # - Delay_InitialCondition_j
     # - Delay1_InitialCondition
     # - Constant17_Value
-    # - DelayRoot2_InitialCondition
+    # - Delay_InitialCondition_o
     # - Constant24_Value
     # - Delay2_InitialCondition
     # - Delay3_InitialCondition
     # - Delay5_InitialCondition
     # - Delay4_InitialCondition
-    # - Delay_InitialCondition_o
+    # - Delay_InitialCondition_o3
     # - Delay_InitialCondition_k
     # - Switch_Threshold
     # - Delay_InitialCondition_o4
     # - Constant25_Value
     # - Constant26_Value
     # - Gain_Gain
-    # - Delay_InitialCondition_oh
 
 # fonction d'initialisation pour réglage du pas de temps: à appeler en tout début de script
 if True:
@@ -1372,8 +1373,6 @@ if True:
         stepSize0 = c_int(time_step)
         lib.initialize(byref(stepSize0))
     
-    
-
 
 
 
